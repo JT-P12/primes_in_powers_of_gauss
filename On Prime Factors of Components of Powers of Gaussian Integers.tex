@@ -1,0 +1,186 @@
+\documentclass[oneside,english,man]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{amssymb,tikz}
+\usetikzlibrary{positioning}
+\usepackage[colorlinks=false,urlbordercolor=white]{hyperref}
+  \def\gn#1#2{{$\href{http://groupnames.org/\#?#1}{#2}$}}
+\def\gn#1#2{$#2$}  % comment this line out to get html links
+\tikzset{sgplattice/.style={inner sep=1pt,norm/.style={red!50!blue},char/.style={blue!50!black},
+  lin/.style={black!50}},cnj/.style={black!50,yshift=-2.5pt,left=-1pt of #1,scale=0.5,fill=white}}
+\makeatletter
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\usepackage{mathtools}
+\makeatother
+\usepackage{babel}
+\usepackage{enumitem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}[theorem]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{conjecture}{Conjecture}
+
+\begin{document}
+\title{On Rational Prime Factors of Gaussian Integer Components}
+\author{Jonathan Trousdale}
+\maketitle
+
+\begin{abstract}
+	TODO
+\end{abstract}
+
+
+\section{Introduction}
+
+
+The following definitions are tacitly assumed. A Gaussian integer $g$ has components $a+ib$ and assumes that $\vert a \vert$ and $\vert b \vert$ are distinct, coprime and non-zero integers.  Two sets of prime integers are distinguish by subscript, $p_s = 4s+3$ is a prime integer congruent with 3 modulo 4, $p_t = 4t+1$ is a prime integer congruent with 1 modulo 4.
+
+\section{Prime integers congruent to 3 modulo 4}
+We now prove the following theorem
+
+\begin{theorem} \label{thm:p_3}
+	Let $g=a+ib$ be a Gaussian prime with norm $\gamma$ and $\vert a\vert$ and $\vert b\vert$ non-zero, and let $p$ be a rational prime of the form $4m+1$ with $p\neq \gamma$.
+	\begin{enumerate}[label={(\roman*)}]
+		\item If $\gamma$ is a quadratic residue modulo $p$, then $p$ divides either the real or imaginary part of $g^{(p-1)/4}$. \label{thm:p_3_residue}
+		\item If $\gamma$ is a quadratic nonresidue modulo $p$, then $p$ divides the real part of $g^{(p-1)/2}$. \label{thm:p_3_nonresidue}
+	\end{enumerate}
+\end{theorem}
+
+\begin{lemma}
+	Prime integer $p_s$ divides either the real or imaginary part of $g^{(p_s+1)/2}$.
+\end{lemma}
+
+\textbf{Proof}: Define the function $\mu:\mathbb{Z}[i]\rightarrow\mathbb{Z}$ by 
+\begin{equation} \label{eq:mu}
+	\mu(g)=\Re{(g)}\Im{(g)},
+\end{equation}
+such that $\mu(g)$ comprises all factors of the real and imaginary components of $g$. For any positive even integer, $n$, $\mu(g^n)$ can be expanded as
+\begin{align} \label{eq:mu_expand}
+	\begin{split}
+		\mu(g^n) = \sum_{j=0}^{n/2-1} (-1)^j \sum_{k=0}^j & \begin{pmatrix} n\\n-2k \end{pmatrix} \begin{pmatrix} n\\n-2(j-k)-1 \end{pmatrix} \\
+		&\left( a^{2(n-j)-1}b^{2j+1} - a^{2j+1}b^{2(n-j)-1} \right).
+	\end{split}
+\end{align}
+The $(p_s+1)/2=2s+2$.  Set $n=2s+2$ the first term of $\mu(g^{2s+2})$, which is the term associated with $j=0$, is given by
+\begin{equation*}
+	\mu(g^{2s+2})=(2s+2)\left(a^{4s+3}b-ab^{4s+3}\right)-\ldots\,.
+\end{equation*}
+The value $4s+3$ is prime by hypothesis, and Fermat's little theorem leads to
+\begin{equation*}
+	a^{4s+3}b-ab^{4s+3}\equiv 0\;(\mathrm{mod}\;4s+3).
+\end{equation*}
+This leaves the terms associated with $j=1,\ldots,s$ for consideration.
+\\
+
+Define the coefficient associated with a given $j$ by
+\begin{equation}\label{eq:k_j}
+	\kappa_j = \sum_{k=0}^j \begin{pmatrix} 2s+2\\2(s-k+1) \end{pmatrix} \begin{pmatrix} 2s+2\\2(s+k-j)+1 \end{pmatrix},
+\end{equation}
+such that \eqref{eq:mu_expand} can be expressed as
+\begin{equation} \label{eq:m_expand}
+	\mu(g^{2s+2})=\sum_{j=0}^s(-1)^j \kappa_j\left(a^{4s-2j+3}b^{2j+1}-a^{2j+1}b^{4s-2j+3}\right).
+\end{equation}
+For a given term associated with $j>0$, the coefficient $\kappa_j$ is a univariate polynomial of degree $2j+1$ in $s$.  This polynomial can be expressed in terms of its linear factors according to,
+\begin{equation} \label{eq:k_product}
+	\kappa_j = (2s+2)\prod_{m=1}^{j}\frac{(4s-2m+5)(2s-m+2)}{m(2m+1)}.
+\end{equation}
+When $m=1$, the factor $4s-2m+5$ equals $4s+3$, and thus $4s+3$ is a factor of every $\kappa_j$ for $0<j\leq s$ unless cancelled by the same factor in the denominator.
+\\
+
+For any $p_s$, the largest value of $j$ is $s$, thus by \eqref{eq:k_product} the largest posible factor in the denominator of any $\kappa_j$ is $2s+1$.  Since $2s+1$ is always less than $4s+3$, the prime factor $4s+3$ cannot appear in the denominator of $\kappa_j$ for $j=1,\ldots,s$.  Thus $p_s=4s+3$ is a factor of either $\Re\left(g^{(p_s+1)/2}\right)$ or $\Im\left(g^{(p_s+1)/2}\right)$. $\square$
+
+\section{Prime integers congruent to 1 modulo 4}
+The analogous theorem and proof for $p_t$ follows very closely to the preceding section.
+\\
+\begin{theorem} \label{thm:p_1}
+	Let $g=a+ib$ be a Gaussian prime with norm $\gamma$ and $\vert a\vert$ and $\vert b\vert$ non-zero, and let $p$ be a rational prime of the form $4m+1$ with $p\neq \gamma$.
+	\begin{enumerate}[label={(\roman*)}]
+		\item If $\gamma$ is a quadratic residue modulo $p$, then $p$ divides either the real or imaginary part of $g^{(p-1)/4}$. \label{thm:p_1_residue}
+		\item If $\gamma$ is a quadratic nonresidue modulo $p$, then $p$ divides the real part of $g^{(p-1)/2}$. \label{thm:p_1_nonresidue}
+	\end{enumerate}
+\end{theorem}
+\textbf{Proof}:  The proof follows closely to that of Theorem \ref{thm:p_3}.
+\begin{lemma}
+	The rational prime $p$ divides either the real or imaginary part of $g^{(p-1)/2}$. 
+\end{lemma}
+
+The exponent in at issue, expressed in terms of $m$, is $(p-1)/2=2m$ and we consider $\gamma\mu(g^{2m})$, which can be expanded as
+\begin{align} \label{eq:ng_mu_expand}
+	\begin{split}
+		\gamma\mu(g^{2m}) =& \sum_{j=0}^{m-1} (-1)^j \Bigg[ \sum_{k=0}^j \begin{pmatrix} 2m\\2(m-k) \end{pmatrix} \begin{pmatrix} 2m\\2(m+k-j)-1 \end{pmatrix} \\
+		&  -\sum_{k=0}^{j-1} \begin{pmatrix} 2m\\2(m-k) \end{pmatrix} \begin{pmatrix} 2m\\2(m+k-j)+1 \end{pmatrix}\ \Bigg] \\
+		& \left( a^{2(m-j)-1}b^{2j+1} - a^{2j+1}b^{2(m-j)-1} \right),
+	\end{split}
+\end{align}
+noting that $p$ and $\gamma$ are distinct primes by hypothesis, so multiplication by $\gamma$ cannot contribute a factor of $p$.
+\\
+
+The first term of $\gamma\mu(g^{2m})$, which is the term associated with $j=0$, takes the form
+\begin{equation*}
+	\gamma\mu(g^{2m})=2m\left(a^{4m+1}b-ab^{4m+1}\right)-\ldots\,.
+\end{equation*}
+By hypothesis $4m+1$ is prime, and Fermat's little theorem leads to
+\begin{equation*}
+	a^{4m+1}b-ab^{4m+1}\equiv 0\;(\mathrm{mod}\;4m+1),
+\end{equation*}
+leaving the terms associated with $j=1,\ldots,m-1$ for consideration.
+\\
+
+Define a coefficient associated with $j=0$ as $\chi_0=2m$ and coefficients associated with $j=1,\ldots,m-1$ by
+\begin{equation}\label{eq:x_j}
+	\begin{split}
+		\chi_j = &\left[\sum_{k=0}^j \begin{pmatrix} 2m\\2(m-k) \end{pmatrix} \begin{pmatrix} 2m\\2(m+k-j)-1 \end{pmatrix}\right] \\
+		&-\left[\sum_{k=0}^{j-1} \begin{pmatrix} 2m\\2(m-k) \end{pmatrix} \begin{pmatrix} 2m\\2(m+k-j)+1 \end{pmatrix}\right],
+	\end{split}
+\end{equation}
+which relates to \eqref{eq:k_j} by $\chi_j=\kappa_j-\kappa_{j-1}$.  The expansion of $\gamma\mu(g^{2m})$ can now be expressed as
+\begin{equation*}
+	\gamma\mu(g^{2m})=\sum_{j=0}^{m-1} (-1)^j \chi_j\left(a^{4m-2j+1}b^{2j+1}-a^{2j+1}b^{4m-2j+1}\right).
+\end{equation*}
+
+For a given term associated with $j>0$, the coefficient $\chi_j$ is a univariate polynomial of degree $2j+1$ in $m$, which can be expressed in terms of its linear factors according to,
+\begin{equation} \label{eq:x_prod}
+	\chi_j = 2m\prod_{k=1}^j \frac{(4m-2k+3)(2m-k+1)(m-k)}{k(2k+1)(m-k+1)}.
+\end{equation}
+When $k=1$, the factor $4m-2k+3$ equals $4m+1$, and thus $4m+1$ is a factor of every $\chi_j$ for $0<j\leq m-1$ unless it is cancelled by the same factor in the denominator.
+\\
+
+For any $p$, the largest value of $j$ is $m-1$.  Thus by \eqref{eq:x_prod} the largest posible factor in the denominator of any $\chi_j$ is $2m-1$.  Since $2m-1$ is less than $4m+1$, the prime factor $4m+1$ cannot appear in the denominator of $\chi_j$ for $j<t-1$.  Thus $p$ is a factor of either the real or imaginary component of $g^{(p-1)/2}$.
+\\
+
+\begin{lemma}
+Rational prime $p$ is a factor of the imaginary part of $g^{(p-1)/2}$ if and only if $\gamma$ is a quadratic residue of $p$.
+\end{lemma}
+
+The imaginary part of $g^{(p-1)/2}$ equals $2\mu\left(g^{(p-1)/4}\right)$. Thus, if $p$ divides $\Im\left(g^{(p-1)/2}\right)$, then $p$ also divides either $\Re\left(g^{(p-1)/4}\right)$ or $\Im\left(g^{(p-1)/4}\right)$.  Demonstration of this lemma relies on the norms of $g^{(p-1)/4}$ and $g^{(p-1)/2}$, so the analysis proceeds in an identical fashion in both cases.
+\\
+
+Assume $p$ is a factor of $\Im{\left(g^{(p-1)/2}\right)}$, and further assume $p$ is a factor of the real component of $g^{(p-1)/4}$.  Take the real and imaginary components of $g^{(p-1)/4}$ to be
+\begin{equation*}
+	g^{(p-1)/4} = \alpha p +i\tilde{b}.
+\end{equation*}
+The norms of $g^{(p-1)/4}$ and $g^{(p-1)/2}$ are
+\begin{align}
+	\gamma^{(p-1)/4}&=\tilde{b}^2+\alpha^2 p^2 =\tilde{b}^2\;(\mathrm{mod\;p}),\label{eq:p_1_quad} \\
+	\gamma^{(p-1)/2}&=\tilde{b}^4+2\tilde{b}^2\alpha^2 p^2 + \alpha^4 p^4 = \tilde{b}^4\;(\mathrm{mod\;p}) \label{eq:p_1_quart}.
+\end{align}
+
+
+$\square$
+The coefficients $\kappa_j$ and $\chi_j$ are symmetric, with $\kappa_j=\kappa_{2s+1-j}$ and $\chi_j=\chi_{2t-1-j}$.  This symmetry was utilized in the proof to combine terms with the same coefficients.
+
+
+
+\section{Notes}
+
+
+Set $g^n=a+ib$ and $\gamma^n=N(g^n)$, then $g^{n/2}=\sqrt{\frac{1}{2}(a+\gamma^{n/2})}+\sqrt{\frac{1}{2}(a-\gamma^{n/2})}$, which solves a biquadratic of the form $x^4-2ax^2+\gamma^n=0$,
+\begin{equation}
+	g^{2n}-2ag^n+\gamma^n=0.
+\end{equation}
+
+Is there any characteristic that indicates $g^n$ will contain a prime?
+
+
+
+\end{document}
